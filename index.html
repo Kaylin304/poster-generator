@@ -31,10 +31,12 @@
   </div>
 
   <canvas id="posterCanvas" width="1586" height="2245"></canvas>
+  <button id="download-btn" style="display:none;">下载海报</button>
 
   <script>
     const canvas = document.getElementById('posterCanvas');
     const ctx = canvas.getContext('2d');
+    const downloadBtn = document.getElementById('download-btn');
 
     const templateImage = new Image();
     templateImage.src = './template.png'; // 确保路径正确
@@ -64,6 +66,21 @@
       ctx.fillText(`中收 ${income}元`, 370, 1950); // 中间收入
 
       console.log('文字绘制完成');
+
+      // 显示下载按钮
+      downloadBtn.style.display = 'inline';
+    });
+
+    // 下载海报功能
+    downloadBtn.addEventListener('click', () => {
+      // 将canvas转换为图片URL
+      const imageUrl = canvas.toDataURL('image/png');
+
+      // 创建一个临时的<a>标签进行下载
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.download = '海报.png'; // 设置下载文件名
+      link.click(); // 模拟点击下载
     });
   </script>
 </body>
