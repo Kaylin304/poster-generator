@@ -8,7 +8,7 @@
   <style>
     body {
       font-family: 'Source Han Sans', sans-serif;
-      text-align: center; /* 这里应该在body样式内 */
+      text-align: center;
       margin: 0;
       padding: 0;
     }
@@ -17,6 +17,21 @@
     }
     canvas {
       border: 1px solid #ccc;
+      max-width: 100%; /* 适应屏幕大小 */
+    }
+    #download-btn {
+      font-size: 24px; /* 更大字体 */
+      padding: 20px 40px; /* 增加按钮的大小 */
+      background-color: #ff9900; /* 显眼的颜色 */
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+      display: none; /* 初始隐藏 */
+    }
+    #download-btn:hover {
+      background-color: #ff6600; /* 悬停效果 */
     }
   </style>
 </head>
@@ -31,7 +46,7 @@
   </div>
 
   <canvas id="posterCanvas" width="1586" height="2245"></canvas>
-  <button id="download-btn" style="display:none;">下载海报</button>
+  <button id="download-btn">下载海报</button>
 
   <script>
     const canvas = document.getElementById('posterCanvas');
