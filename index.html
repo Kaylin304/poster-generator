@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Han+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>海报生成工具</title>
+  <style>
+    body {
+      font-family: 'Source Han Sans', sans-serif;
+      text-align: center; /* 这里应该在body样式内 */
+      margin: 0;
+      padding: 0;
+    }
+    .input-container {
+      margin: 20px;
+    }
+    canvas {
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="input-container">
+    <label>支行名称：<input type="text" id="input-branch" placeholder="输入支行名称"></label><br>
+    <label>姓名：<input type="text" id="input-name" placeholder="输入姓名"></label><br>
+    <label>产品名称：<input type="text" id="input-product" placeholder="输入产品名称"></label><br>
+    <label>销量：<input type="number" id="input-sales" placeholder="输入销量"></label><br>
+    <label>中间收入：<input type="number" id="input-income" placeholder="输入中间收入"></label><br>
+    <button id="generate-btn">生成海报</button>
+  </div>
+
+  <canvas id="posterCanvas" width="1586" height="2245"></canvas>
+
+  <script>
+    const canvas = document.getElementById('posterCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const templateImage = new Image();
+    templateImage.src = './template.png'; // 确保路径正确
+    templateImage.onload = () => {
+      console.log('模板图片加载成功');
+    };
+
+    document.getElementById('generate-btn').addEventListener('click', () => {
+      // 绘制背景图片
+      ctx.drawImage(templateImage, 0, 0, canvas.width, canvas.height);
+
+      // 获取输入框内容
+      const branch = document.getElementById('input-branch').value || '支行名称';
+      const name = document.getElementById('input-name').value || '姓名';
+      const product = document.getElementById('input-product').value || '产品名称';
+      const sales = document.getElementById('input-sales').value || '0';
+      const income = document.getElementById('input-income').value || '0';
+
+      // 设置文字样式并绘制
+      ctx.font = 'bold 160px "Source Han Sans"';  // 加引号来确保字体名称正确
+      ctx.fillStyle = '#FFDE59';
+      ctx.fillText(branch, 480, 850); // 支行名称
+      ctx.fillStyle = '#CB0000';
+      ctx.fillText(name, 560, 1050); // 姓名
+      ctx.fillText(`【${product}】`, 340, 1430); // 产品名称
+      ctx.fillText(`销量 ${sales}万`, 460, 1690); // 销量
+      ctx.fillText(`中收 ${income}元`, 370, 1950); // 中间收入
+
+      console.log('文字绘制完成');
+    });
+  </script>
+</body>
+</html>
